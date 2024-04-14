@@ -72,12 +72,85 @@
   
 
 # 모델링
-- parameter(random_state=2024, n_estimators=200, max_depth=12)를 설정하여 randomforest 모델 fitting(RMSE: 3.02)
-- parameter(random_state=2024, n_estimators=100, max_depth=10)를 설정하여 catboost 모델 fittint(RMSE: 3.02)
-- parameter(random_state=2024, n_estimators=100, max_depth=10)를 설정하여 xgboost 모델 fittint(RMSE: 3.13)
-- parameter(random_state=2024, learning_rate=0.05, max_depth=20, min_child_samples=30, n_estimators=180, num_leaves=40)를 설정하여 lgbm 모델 fitting(RMSE: 2.95) -> 최종모델 선정
-- optuna 방법을 활용하여 하이퍼파라미터튜닝(learning_rate=0.05629447251416819, max_depth=18, min_child_samples=12, n_estimators=146, num_leaves=35) 수행 후 lgbm 모델 fitting
-- randomforest(max_depth=15, random_state=2024), lgbm(learning_rate=0.05, max_depth=20, min_child_samples=30, num_leaves=40,random_state=202),  catboost((random_state=2024, n_estimators=100, max_depth=10, learning_rate=0.1) 설정 후 stacking model(최종모델 lgbm(random_state=2024, n_estimators=100, max_depth=20, learning_rate=0.05, num_leaves=40, min_child_samples=30)) fitting(RMSE: 2.99)
+- parameter(random_state=2024, n_estimators=100, max_depth=10)를 설정하여 xgboost 모델 fitting(RMSE: 597.05)
+- parameter(random_state=2024, n_estimators=100, max_depth=10)를 설정하여 randomforest 모델 fittint(RMSE: 560.46)
+- optuna 활용한 parameter('learning_rate': 0.04612756986536774, 'max_iter': 931, 'max_depth': 16, 'min_samples_leaf': 41, 'l2_regularization': 0.5793182507718159)를 설정하여 hgb 모델 fitting(RMSE: 543.58)
+- optuna 활용한 parameter 'n_estimators': 288,'learning_rate': 0.027331707485934616,'num_leaves': 20,'max_depth': 13,'min_child_samples': 54,'subsample': 0.46324648447514566,'colsample_bytree': 0.5146306552485138)를 설정하여 lgbm모델 fitting(RMSE: 543.34)
+- optuna를 활용한 parameter
+  {lgb_params = {
+    'num_leaves': 80,
+    'learning_rate': 0.08856391656202889,
+    'n_estimators': 138,
+    'subsample': 0.7938571236989019,
+    'colsample_bytree': 0.9016202740584827,
+    'reg_alpha': 0.96095800250082,
+    'reg_lambda': 0.5220401485447594,
+    'min_child_samples': 21
+}
+
+  xgb_params = {
+    'n_estimators': 987,
+    'learning_rate': 0.06899495748113199,
+    'max_depth': 3,
+    'min_samples_split': 12,
+    'min_samples_leaf': 3
+}
+
+  catboost_params = {
+    'learning_rate': 0.2806971986577452,
+    'iterations': 277,
+    'depth': 4,
+    'l2_leaf_reg': 9.706635385160684,
+    'random_strength': 7.351833081184607,
+    'bagging_temperature': 0.8959051902105583,
+    'border_count': 20
+}
+
+  hgb_params = {
+    'learning_rate': 0.09000242826110565,
+    'max_iter': 267,
+    'max_depth': 7,
+    'min_samples_leaf': 8,
+    'l2_regularization': 0.9394399140092757
+}} 를 설정하여 최종모델 linear regression인 stacking 방식으로 fitting(RMSE:542.77)
+
+- - optuna를 활용한 parameter
+  {lgb_params = {
+    'num_leaves': 80,
+    'learning_rate': 0.08856391656202889,
+    'n_estimators': 138,
+    'subsample': 0.7938571236989019,
+    'colsample_bytree': 0.9016202740584827,
+    'reg_alpha': 0.96095800250082,
+    'reg_lambda': 0.5220401485447594,
+    'min_child_samples': 21
+}
+
+gb_params = {
+    'n_estimators': 987,
+    'learning_rate': 0.06899495748113199,
+    'max_depth': 3,
+    'min_samples_split': 12,
+    'min_samples_leaf': 3
+}
+
+cat_params = {
+    'learning_rate': 0.2806971986577452,
+    'iterations': 277,
+    'depth': 4,
+    'l2_leaf_reg': 9.706635385160684,
+    'random_strength': 7.351833081184607,
+    'bagging_temperature': 0.8959051902105583,
+    'border_count': 20
+}
+
+hgb_params = {
+    'learning_rate': 0.09000242826110565,
+    'max_iter': 267,
+    'max_depth': 7,
+    'min_samples_leaf': 8,
+    'l2_regularization': 0.9394399140092757
+}} 를 설정하여 최종모델 voting regressor방식으로 fitting(RMSE:541.85) -> 최종모델 선정
 
 # 느낀점
-- 단일 모델이 아닌 ENSEMBLE방식을 다양하게 활용하여 모델링을 진행했으면 더 좋은 성과가 나오지 않았을까 생각한다. 다음 대회에 참여하게 된다면 다양한 ENSEMBLE 방법을 적용하여 더 성능이 높은 모델을 만들도록 해야겠다.
+- 다양한 모델링 방법과 앙상블 과정을 통해 코드 제출을 했지만 생각보다 높은 순위를 내지 못했다. EDA를 통해 적절한 전처리를 수행했어야 하는데 그러지 못해 뭔가 Feature Engineering하여 전처리 하는 과정에서 유의미한 결과를 내지 못했기 때문인 것 같다. 다음에는 EDA를 활용하여 유의미한 인사이트를 발굴하도록 더 데이터 시각화에 중점을 두어서 분석을 진행해 봐야 겠다.
