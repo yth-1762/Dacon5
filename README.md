@@ -12,42 +12,47 @@
 
 # 데이터
 - https://dacon.io/competitions/official/236230/data(데이터 출처)
-- 데이터 개수 : 252289개
+- 데이터 개수 : 20000개
   
-| Column               | Non-Null Count   | Dtype   |
+| Column                  | Non-Null Count   | Dtype   |
 |----------------------|------------------|---------|
-| sessionID            | 252289 non-null  | object  |
-| userID               | 252289 non-null  | object  |
-| TARGET               | 252289 non-null  | float64 |
-| browser              | 252289 non-null  | object  |
-| OS                   | 252289 non-null  | object  |
-| device               | 252289 non-null  | object  |
-| new                  | 252289 non-null  | int64   |
-| quality              | 252289 non-null  | float64 |
-| duration             | 252289 non-null  | float64 |
-| bounced              | 252289 non-null  | int64   |
-| transaction          | 252289 non-null  | float64 |
-| transaction_revenue  | 252289 non-null  | float64 |
-| continent            | 252289 non-null  | object  |
-| subcontinent         | 252289 non-null  | object  |
-| country              | 252289 non-null  | object  |
-| traffic_source       | 252289 non-null  | object  |
-| traffic_medium       | 252289 non-null  | object  |
-| keyword              | 114614 non-null  | object  |
-| referral_path        | 91182 non-null   | object  |
+| ID                      | 20000 non-null  | object  |
+| Age                     | 20000 non-null  | int64   |
+| Gender                  | 20000 non-null  | object  |
+| Education_Status        | 20000 non-null  | object  |
+| Employment_Status       | 20000 non-null  | object  |
+| Working_Week (Yearly)   | 20000 non-null  | int64   |
+| Industry_Status         | 20000 non-null  | object  |
+| Occupation_Status       | 20000 non-null  | object  |
+| Race                    | 20000 non-null  | object  |
+| Hispanic_Origin         | 20000 non-null  | object  |
+| Martial_Status          | 20000 non-null  | object  |
+| Household_Status        | 20000 non-null  | object  |
+| Household_Summary       | 20000 non-null  | object  |
+| Citizenship             | 20000 non-null  | object  |
+| Birth_Country           | 20000 non-null  | object  |
+| Birth_Country (Father)  | 20000 non-null  | object  |
+| Birth_Country (Mother)  | 20000 non-null  | object  |
+| Tax_Status              | 20000 non-null  | object  |
+| Gains                   | 20000 non-null  | int64   |
+| Losses                  | 20000 non-null  | int64   |
+| Dividends               | 20000 non-null  | int64   |
+| Income_Status           | 20000 non-null  | object  |
+| Income                  | 20000 non-null  | int64   |
+
 
 
 
   
 
 # 사용언어/ 최종 선정 모델
-- python/ lgbm
+- python/ votingregressor(lgbm+gb+hgb+catboost)
 
 # 모델 성능 지표
 - RMSE
 
 # EDA
-- 범주형 변수('browser', 'OS', 'subcontinent', 'country', 'traffic_source','device', 'continent', 'traffic_medium')들을 countplot으로 확인(chrome, windows, america,  google,desktop, organic 등이 가장 많은 것을 확인)
+- 범주형 변수('Gender', 'Educaton_Statue', 'subcontinent', 'country', 'traffic_source','device', 'continent', 'traffic_medium')들을 countplot으로 확인
 - 범주형 변수별 평균 target(조회수) countplot으로 확인
 - 수치형 변수('new', 'quality', 'duration', 'bounced', 'transaction', 'transaction_revenue')들을 countplot으로 확인
 - new, bounced의 평균 조회수를 barplot으로 확인(new, bounced의 경우 0일 때가 1일 때보다 더 많음)
