@@ -52,28 +52,23 @@
 - RMSE
 
 # EDA
-- 범주형 변수('Gender', 'Educaton_Statue', 'subcontinent', 'country', 'traffic_source','device', 'continent', 'traffic_medium')들을 countplot으로 확인
-- 범주형 변수별 평균 target(조회수) countplot으로 확인
-- 수치형 변수('new', 'quality', 'duration', 'bounced', 'transaction', 'transaction_revenue')들을 countplot으로 확인
-- new, bounced의 평균 조회수를 barplot으로 확인(new, bounced의 경우 0일 때가 1일 때보다 더 많음)
-- 수치형 변수들의 상관관계 heatmap을 통해 확인(transaction과 transaction_revenue가 0.46, transaction과 quality가 0.48로 그나마 높은 상관관계를 보이는 것을 확인)
-- continent별 new와, bounced의 평균 조회수 barplot으로 확인(모든 continent가 new가 0일 때 1일 때보다 평균 조회수가 높음-> 접속 경험이 있는 이용자들은 처음 접속한 이용자들보다 조회수가 높음)
-- continent별 quality의 평균 조회수 barplot 확인(america의 경우 quality의 수가 높아질수록 tatget이 높아지는 경향을 보임)
-- continent별 transaction의 평균 조회수 barplot 확인(transaction이 높을수록 평균 조회수가 높아지는 경향을 보임)
-- device별 new의 평균 조회수 barplot으로 확인(desktop은 new가 0일 때 평균 조회수가 더 높고 mobile과 tablet은 1일 때 더 높음)
-- device별 bounced의 평균 조회수 barplot으로 확인(device모두 new가 0일 때 압도적으로 높음)
-- device별 transaction의 평균 조회수 barplot으로 확인(device 모두 transaction이 높을수록 평균 조회수가 높음)
-- traffic_medium별 new, bounced의 평균 조회수 barplot으로 확인(모든 traffic_medium이 newr가 0일 때 평균 조회수가 높음)
-- traffic_medium별 quality,transaction의 평균 조회수 barplot으로 확인(모든 traffic_medium이 quality가 높아질수록 평균 조회수가 높음)
+- 범주형 변수['Gender','Education_Status','Employment_Status','Industry_Status','Occupation_Status','Race','Hispanic_Origin','Martial_Status','Household_Status','Household_Summary','Citizenship','Birth_Country','Birth_Country (Father)','Birth_Country (Mother)','Tax_Status','Income_Status')들을 countplot으로 확인 (학력 수준이 높을수록, 백인, 기혼, 미국인일수록 수가 많은 것 확인)
+- 수치형 변수('Age', 'Working_Week (Yearly)', 'Gains', 'Losses', 'Dividends', 'Income')들을 countplot으로 확인
+- 수치형 변수들의 상관관계 heatmap을 통해 확인(working_week(yearly)와 income이 0.42로 그나마 높은 상관관계를 보이는 것을 확인)
+- Education_Status별 평균 income barplot을 통해 확인(교육수준이 높을수록 평균 income이 높은 것을 확인)
+- Marital_Status별 평균 income barplot을 통해 확인(Married(Armed Force Spouse가 평균 income이 가장 높은 것을 확인)
+- Industry_Status별 평균 income barplot을 통해 확인(Utilities & Sanitary가 평균 income이 가장 높은 것을 확인)
+- Race, Occupation_Status별 평균 income barplot을 통해 각각 확인(White, Technicians&Support가 평균 income이 가장 높은 것을 확인)
+- (Race, Education_Status)별 (Gender, Employment_Status)별 (Race, Gender)별 (Gender, Education_Status)별 평균 income barplot을 통해 확인 (Gender의 경우 M일 때 상대적으로 F보다 평균 income이 높은 것을 확인)
 
 
   
 
 # 데이터 전처리
-- referral_path와 keyword 범주형 변수 ('Category1', 'Others', 'Category2', 'Category11', 'Category3','Category10', 'Category6', 'Category8', 'Category5', 'Category12','Category13', 'Category7', 'Category9', 'Category4') 이와 같은 범주 형태 가지도록 처리
-- 'browser', 'OS', 'device', 'country','continent', 'subcontinent', 'traffic_source', 'traffic_medium', 'referral_path', 'keyword' 범주형 변수들 원핫인코딩 처리
-- 'quality', 'duration', 'transaction', 'transaction_revenue' 변수 standard scaler를 활용하여 표준화
-- 수치형 변수들의 조합으로 22개 변수 추가 생성(feature engineering)
+- "Employment_Status", "Industry_Status", "Occupation_Status", "Race", "Hispanic_Origin", "Martial_Status", "Household_Summary","Citizenship", "Tax_Status","Income_Status","Education_Status","Birth_Country" 범주형 변수들을 Label Encoding 처리
+- Gender 변수 M=1, F=0으로 처리
+- 수치형 변수들의 조합으로 'Age_Working_Week','Gains_Losses', 'Age_Dividends', 'Age_Losses', 'Working_Week_Dividends', 'Gains_Dividends', 'Working_Week_Losses', 'Age_Working_Week_Gains', 'Working_Week_Gains_Losses' Feature Engineering을 통해 생성
+
   
 
 # 모델링
