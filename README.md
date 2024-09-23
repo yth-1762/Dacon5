@@ -11,7 +11,7 @@
  
 
 # 데이터
-- https://dacon.io/competitions/official/236230/data(데이터 출처)
+- https://dacon.io/competitions/official/236230/data  (데이터 출처)
 - 데이터 개수 : 20000개
   
 | Column                  | Non-Null Count   | Dtype   |
